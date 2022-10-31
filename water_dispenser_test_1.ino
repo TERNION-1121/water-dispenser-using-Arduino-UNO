@@ -30,7 +30,7 @@ void loop()
     dispenserServo.write(value); // Servo shifts to 90 degrees
     state = 1; // signifies that the servo is activated
     Serial.println("Sensor activated!"); // For confirmation in the serial monitor
-    delay(5000); // 5 seconds' delay
+    delay(1000); // 1 second's delay
   }
   else{
     value = 0; // change in angle for the servo to set it back at its original position
