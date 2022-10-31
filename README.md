@@ -9,6 +9,7 @@ The working is based on a simple mechanism:
 
 
 
-> To view the circuit simulation design of this project, [Click here](https://www.tinkercad.com/things/25j5h8029Og)
-
-![image](https://user-images.githubusercontent.com/97667653/198984585-1d7c08d7-8f4b-4185-b751-3e75d70e1b65.png)
+> To view the circuit simulation design of this project, Click on the below image.
+<a href="https://www.tinkercad.com/things/25j5h8029Og" target='blank'>
+  <img src="https://user-images.githubusercontent.com/97667653/198984585-1d7c08d7-8f4b-4185-b751-3e75d70e1b65.png" alt="circuit simulation image">
+</a>
