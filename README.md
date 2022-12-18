@@ -7,9 +7,11 @@ The working is based on a simple mechanism:
 2. As soon as the PIR sensor would detect hand movement under its range, it would rotate the servo motor, enabling the water to fall.
 3. After a *1 second delay*, if movement is not detected again, the servo motor would rotate back to its original position; hence stopping the flow of water.
 
+Same would be the working for the soap dispenser, with another PIR sensor installed.
+
 
 
 > To view the circuit simulation design of this project, Click on the below image.
-<a href="https://www.tinkercad.com/things/25j5h8029Og" target='blank'>
-  <img src="https://user-images.githubusercontent.com/97667653/198984585-1d7c08d7-8f4b-4185-b751-3e75d70e1b65.png" alt="circuit simulation image">
+<a href="https://www.tinkercad.com/things/cLtt0fIfCmB" target='blank'>
+  <img src="https://user-images.githubusercontent.com/97667653/208300228-428c8af6-4be1-4d1a-bcd0-6bdd45816610.png" alt="circuit simulation image">
 </a>
