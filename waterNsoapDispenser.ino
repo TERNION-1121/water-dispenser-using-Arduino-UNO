@@ -46,12 +46,10 @@ void loop(){
   if(distance >= LOWER_RANGE && distance <= UPPER_RANGE){
   		digitalWrite(LED, HIGH);
     	dispenser.write(90);
-    	Serial.println("Activated!");
+    	Serial.println("Water Activated!");
     	Serial.println(distance);
     	delay(500);
   }
-  dispenser.write(0);
-  digitalWrite(LED, LOW);
   
   digitalWrite(TRIG_S, LOW);
   delayMicroseconds(2);
@@ -67,6 +65,11 @@ void loop(){
     Serial.println(distance_s);
     delay(500);
   }
+  
     soap.write(0);
     digitalWrite(LED_S, LOW);
+  	delay(1000);
+  
+  	dispenser.write(0);
+  	digitalWrite(LED, LOW);
 }
