@@ -1,77 +1,72 @@
 #include<Servo.h>
 
-int servoWaterPin = 13;
-int ledWaterPin  = 10;
-int pirWaterPin = 11;
+#define LED 10
+#define TRIG 8
+#define ECHO 9
+#define SERVO 13
+#define LOWER_RANGE 8
+#define UPPER_RANGE 15
 
-int servoSoapPin = 7;
-int ledSoapPin = 5;
-int pirSoapPin = 9;
+#define LED_S 11
+#define TRIG_S 6
+#define ECHO_S 7
+#define SERVO_S 12
+#define LOWER_RANGE_S 0
+#define UPPER_RANGE_S 7
 
-Servo WaterDispenserServo; // declaring our servo motor's name
-Servo SoapDispenserServo;
+long duration = 0, duration_s = 0;
+int distance = 0, distance_s = 0;
+Servo dispenser;
+Servo soap;
 
-void setup()
-{
-  Serial.begin(9600);
-  pinMode(ledWaterPin, OUTPUT);
-  pinMode(ledSoapPin, OUTPUT);
+void setup(){
+	pinMode(LED, OUTPUT);
+  	pinMode(TRIG, OUTPUT);
+  	pinMode(ECHO, INPUT);
+  	dispenser.attach(SERVO);
+  	dispenser.write(0);
   
-  // Configuring servo motor's pin
-  WaterDispenserServo.attach(servoWaterPin);
-  SoapDispenserServo.attach(servoSoapPin);
+  	pinMode(LED_S, OUTPUT);
+  	pinMode(TRIG_S, OUTPUT);
+  	pinMode(ECHO, INPUT);
+	soap.attach(SERVO_S);
+  	soap.write(0);
+  
+  	Serial.begin(9600);
 }
 
-void loop()
-{
-  waterDispenser(digitalRead(pirWaterPin));
-  soapDispenser(digitalRead(pirSoapPin));
-}
-
-void waterDispenser(int pirState)
-{
-  int waterState = 0;
-  int valueW = 0;
-  WaterDispenserServo.write(valueW); // defines the value to 0 degrees
+void loop(){
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  duration = pulseIn(ECHO, HIGH);
+  distance = duration * 0.034 / 2;
+  if(distance >= LOWER_RANGE && distance <= UPPER_RANGE){
+  		digitalWrite(LED, HIGH);
+    	dispenser.write(90);
+    	Serial.println("Activated!");
+    	Serial.println(distance);
+    	delay(500);
+  }
+  dispenser.write(0);
+  digitalWrite(LED, LOW);
   
-  if(pirState == 1 && waterState == 0) /* PIR is activated and Servo is deactivated */{
-    valueW+=90; // change in angle for the servo
-    digitalWrite(ledWaterPin, HIGH); // LED indicating the activation
-    WaterDispenserServo.write(valueW); // Servo shifts to 90 degrees
-    waterState = 1; // signifies that the servo is activated
-    Serial.println("Sensor activated!"); // For confirmation in the serial monitor
-    delay(1000); // 1 second's delay
+  digitalWrite(TRIG_S, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_S, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_S, LOW);
+  duration_s = pulseIn(ECHO_S, HIGH);
+  distance_s = duration_s * 0.034 / 2;
+  if(distance_s > LOWER_RANGE_S && distance_s <= UPPER_RANGE_S){
+  	digitalWrite(LED_S, HIGH);
+    soap.write(90);
+    Serial.println("Soap Activated!");
+    Serial.println(distance_s);
+    delay(500);
   }
-  else{
-    valueW = 0; // change in angle for the servo to set it back at its original position
-  	digitalWrite(ledWaterPin, LOW); // LED indicating deactivation
-    WaterDispenserServo.write(valueW); // Servo shifts back to 0 degrees
-    waterState = 0; // signifies that the servo is deactivated
-    Serial.println("Sensor deactivated!"); // For confirmation in the serial monitor
-
-  }
-}
-
-void soapDispenser(int pirState)
-{
-  int soapState = 0;
-  int valueS = 0;
-  SoapDispenserServo.write(valueS); // defines the value to 0 degrees
-  
-  if(pirState == 1 && soapState == 0) /* PIR is activated and Servo is deactivated */{
-    valueS+=90; // change in angle for the servo
-    digitalWrite(ledSoapPin, HIGH); // LED indicating the activation
-    SoapDispenserServo.write(valueS); // Servo shifts to 90 degrees
-    soapState = 1; // signifies that the servo is activated
-    Serial.println("Sensor activated!"); // For confirmation in the serial monitor
-    delay(1000); // 1 second's delay
-  }
-  else{
-    valueS = 0; // change in angle for the servo to set it back at its original position
-  	digitalWrite(ledSoapPin, LOW); // LED indicating deactivation
-    SoapDispenserServo.write(valueS); // Servo shifts back to 0 degrees
-    soapState = 0; // signifies that the servo is deactivated
-    Serial.println("Sensor deactivated!"); // For confirmation in the serial monitor
-
-  }
+    soap.write(0);
+    digitalWrite(LED_S, LOW);
 }
