@@ -12,6 +12,7 @@ Same would be the working for the soap dispenser, with another PIR sensor instal
 
 
 > To view the circuit simulation design of this project, Click on the below image.
+
 <a href="https://www.tinkercad.com/things/cLtt0fIfCmB" target='blank'>
-  <img src="https://user-images.githubusercontent.com/97667653/208300228-428c8af6-4be1-4d1a-bcd0-6bdd45816610.png" alt="circuit simulation image">
+  <img src="https://user-images.githubusercontent.com/97667653/212715178-7bdd695f-3d05-4d7b-9a97-e16a57489aae.png" alt="circuit simulation image">
 </a>
