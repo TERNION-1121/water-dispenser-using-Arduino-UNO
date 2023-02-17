@@ -1,7 +1,7 @@
 #include<Servo.h>
 
-enum PINS_MASK{LED_MASK = 10, TRIG_MASK = 8, ECHO_MASK = 9, SERVO_MASK = 13, LOWER_RANGE = 0, UPPER_RANGE = 10};
-enum PINS_SANITIZER{LED_S = 11, TRIG_S = 6, ECHO_S = 7, SERVO_S1 = 12, SERVO_S2 = 5};
+enum PINS_WATER{LED_WATER = 10, TRIG_WATER = 8, ECHO_WATER = 9, SERVO_WATER = 13, LOWER_RANGE = 0, UPPER_RANGE = 10};
+enum PINS_SOAP{LED_S = 11, TRIG_S = 6, ECHO_S = 7, SERVO_S1 = 12, SERVO_S2 = 5};
 
 
 long duration = 0, duration_s = 0;
@@ -12,16 +12,16 @@ Servo soap1;
 Servo soap2;
 
 void setup(){
-	pinMode(LED_MASK, OUTPUT);
+	pinMode(LED_WATER, OUTPUT);
   	pinMode(LED_S, OUTPUT);
   
-  	pinMode(TRIG_MASK, OUTPUT);
+  	pinMode(TRIG_WATER, OUTPUT);
   	pinMode(TRIG_S, OUTPUT);
   	
-  	pinMode(ECHO_MASK, INPUT);
+  	pinMode(ECHO_WATER, INPUT);
   	pinMode(ECHO_S, INPUT);
   
-  	dispenser.attach(SERVO_MASK);
+  	dispenser.attach(SERVO_WATER);
   	soap1.attach(SERVO_S1);
  	soap2.attach(SERVO_S2);
   
@@ -34,18 +34,18 @@ void setup(){
 
 void loop(){
   
-  digitalWrite(TRIG_MASK, LOW);
+  digitalWrite(TRIG_WATER, LOW);
   delayMicroseconds(2);
-  digitalWrite(TRIG_MASK, HIGH);
+  digitalWrite(TRIG_WATER, HIGH);
   delayMicroseconds(10);
-  digitalWrite(TRIG_MASK, LOW);
-  duration = pulseIn(ECHO_MASK, HIGH);
+  digitalWrite(TRIG_WATER, LOW);
+  duration = pulseIn(ECHO_WATER, HIGH);
   distance = duration * 0.034 / 2;
   if(distance >= LOWER_RANGE && distance <= UPPER_RANGE)
   {
-  		digitalWrite(LED_MASK, HIGH);
+  		digitalWrite(LED_WATER, HIGH);
     	dispenser.write(90);
-    	Serial.println("Dispensing Mask at Range: ");
+    	Serial.println("Dispensing Water at range: ");
     	Serial.println(distance);
     	delay(1000);
   }
@@ -62,7 +62,7 @@ void loop(){
   		digitalWrite(LED_S, HIGH);
     	soap1.write(90);
     	soap2.write(90);
-    	Serial.println("Dispensing Sanitizer at Range: ");
+    	Serial.println("Dispensing Soap at Range: ");
     	Serial.println(distance_s);
     	delay(1000);
   }
@@ -74,5 +74,5 @@ void loop(){
   	delay(500);
   
   	dispenser.write(0);
-  	digitalWrite(LED_MASK, LOW);
+  	digitalWrite(LED_WATER, LOW);
 }
